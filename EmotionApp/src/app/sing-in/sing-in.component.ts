@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {SingInService} from '../sing-in/sing-in.service';
+import {SingInService} from '../Services/sing-in.service';
 import {User} from '../Models/User'
-
+import {Route,Router} from '@angular/router';
 
 @Component({
   selector: 'app-sing-in',
@@ -13,7 +13,7 @@ export class SingInComponent implements OnInit {
 
   user:User;
 
-  constructor(private singService:SingInService) {
+  constructor(private singService:SingInService, private router:Router) {
     
    }
 
@@ -30,13 +30,16 @@ export class SingInComponent implements OnInit {
 
   loginFacebook():void{
     this.singService.sinIngFacebook();
+    this.router.navigate(['/home']);
   }
 
   loginGoogle():void{
     this.singService.singInGoogle();
   }
 
-  saveItem(){
-    this.singService.saveItemInfirebase();
+
+  navigateHome():void{
+    this.router.navigate(['/home']);
   }
+   
 }

@@ -6,11 +6,29 @@ import {AngularFireModule} from 'angularfire2'
 import {AngularFireDatabaseModule} from 'angularfire2/database';
 import {AngularFireAuthModule,AngularFireAuthProvider, AUTH_PROVIDERS} from 'angularfire2/auth';
 import {RouterModule,Route} from '@angular/router';
+
+/** componentes of the app */
+
 import { AppComponent } from './app.component';
 import { SingInComponent } from './sing-in/sing-in.component';
-import {SingInService} from './sing-in/sing-in.service';
+
+import { ComentsComponent } from './coments/coments.component';
+import { EmotionPictureComponent } from './emotion-picture/emotion-picture.component';
+import { HomeComponent } from './home/home.component';
+import { CardPictureComponent } from './card-picture/card-picture.component';
+import { CardPictureDetailComponent } from './card-picture-detail/card-picture-detail.component';
 
 
+/** infinite scroll */
+
+//import {InfiniteScrollModule} from 'angular2-infinite-scroll';
+
+/** Services of the app */
+import {SingInService} from './Services/sing-in.service';
+import {EmotionPictureService} from './Services/emotion-picture.service'
+ 
+/**
+ * configuration of firebase app */ 
 export const firebaseConfig={
   apiKey: "AIzaSyBS1xQICAfvBHIIS_F15rAYO6FOcFQWHUo",
     authDomain: "emopictureapp.firebaseapp.com",
@@ -21,10 +39,10 @@ export const firebaseConfig={
 }
 
 
-/** archivo de rutas de la app */
+/** file of  rutas de la app */
 import {AppRoute} from './Commons/Routes';
-import { ComentsComponent } from './coments/coments.component';
-import { EmotionPictureComponent } from './emotion-picture/emotion-picture.component';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
+
 
 
 
@@ -33,7 +51,11 @@ import { EmotionPictureComponent } from './emotion-picture/emotion-picture.compo
     AppComponent,
     SingInComponent,
     ComentsComponent,
-    EmotionPictureComponent
+    EmotionPictureComponent,
+    HomeComponent,
+    CardPictureComponent,
+    CardPictureDetailComponent,
+    NavBarComponent
   ],
   imports: [
     BrowserModule,
@@ -42,8 +64,9 @@ import { EmotionPictureComponent } from './emotion-picture/emotion-picture.compo
     AngularFireAuthModule,
     HttpModule,
     RouterModule.forRoot(AppRoute)
+   // InfiniteScrollModule
   ],
-  providers: [SingInService],
+  providers: [SingInService,EmotionPictureService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

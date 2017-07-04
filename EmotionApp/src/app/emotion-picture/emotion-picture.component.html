@@ -1,3 +1,44 @@
-<p>
-  emotion-picture works!
-</p>
+ <div class="card" id="card-picture">
+          <div class="card-block">
+            <div class="row header-card">
+              <div class="col-md-2 col-xs-2">
+                <img [src]="emoPicture.UrlPhotoUserSesion" alt="" class="img-fluid rounded rounded-circle avatar-image">
+              </div>
+              <div class="col-md-7 col-xs-10">
+                <h4 class="card-title">{{emoPicture.Username}}</h4>
+                <h4 class="card-title"></h4>
+              </div>  
+              <div class="col-md-3">
+                <div class="btn-group">
+                  <button class="btn-opciones" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    ...
+                  </button>
+                  <div class="dropdown-menu dropdown-menu-right">
+                    <button class="dropdown-item" type="button">Ver detalle</button>
+                    <button class="dropdown-item" type="button">Compartir</button>
+                    <button class="dropdown-item" type="button">Eliminar</button>
+                  </div>
+                </div>
+              </div>            
+            </div>
+            <div>
+
+              <img class="emo-image" [src]="emoPicture.UrlImage" alt=""> 
+            </div>
+            <div class="row" id="emociones">
+            <div id="items" role="tablist" *ngFor="let emotion of emoPicture.Scores;let i = index" class="col-md-6">
+                  <h5>Emociones rostro {{i}}</h5>
+                  <ul class="card-blockquote">
+                        <p class="list-group-item">Feliz: {{emotion.Happiness}}</p>
+                        <p class="list-group-item">Neutral: {{emotion.Neutral}}</p>
+                        <p class="list-group-item">Sorprendido:  {{emotion.Surprise}}</p>
+                        <p class="list-group-item">Tristeza:  {{emotion.Sadness}}</p>                        
+                  </ul>              
+            </div> 
+            </div>
+          <div class="time">
+            <p class="card-text">hace 5 minutos</p>
+          </div>             
+            <button class="btn btn-outline-success">agregar un comentario</button>
+</div>
+ </div>

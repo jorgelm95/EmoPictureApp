@@ -1,0 +1,34 @@
+#card-picture{
+
+    box-shadow: 0px 2px 3px 0px rgba(208, 206, 206, 0.75);
+    margin-bottom: 20px;
+}
+.header-card{
+   margin-bottom:  20px;
+   border-bottom: 1px solid rgba(128, 128, 128, 0.28);
+   padding-bottom: 10px;
+}
+
+.avatar-image{
+    width: 50px;
+}
+ 
+.emo-image{
+    width: 100%;
+    height: 100%;
+    margin-bottom: 20px;
+}
+
+.btn-opciones{
+    border: opx !important;
+
+} 
+
+.time{
+    border-bottom: 1px solid rgba(128, 128, 128, 0.25);;
+}
+
+.progress{
+    padding:0px !important;
+}
+
