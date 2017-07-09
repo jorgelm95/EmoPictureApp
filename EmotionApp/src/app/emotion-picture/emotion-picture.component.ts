@@ -63,6 +63,9 @@ export class EmotionPictureComponent implements OnInit {
   onSubmit(value:any){
     console.log(value);
   }
+  DetailEmoPicture(){
+    
+  }
 
 
 
