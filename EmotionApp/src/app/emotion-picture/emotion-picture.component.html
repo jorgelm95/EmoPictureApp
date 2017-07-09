@@ -1,44 +1,98 @@
  <div class="card" id="card-picture">
           <div class="card-block">
             <div class="row header-card">
-              <div class="col-md-2 col-xs-2">
+              <div class="col-md-1 col-xs-2 user-avatar">
                 <img [src]="emoPicture.UrlPhotoUserSesion" alt="" class="img-fluid rounded rounded-circle avatar-image">
               </div>
-              <div class="col-md-7 col-xs-10">
-                <h4 class="card-title">{{emoPicture.Username}}</h4>
-                <h4 class="card-title"></h4>
+              <div class="col-md-9 col-xs-10 user-name-title">
+                <h4 class="card-title"><strong>{{emoPicture.Username}}</strong></h4>
               </div>  
-              <div class="col-md-3">
+              
+              <div class="col-md-2">
                 <div class="btn-group">
-                  <button class="btn-opciones" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    ...
+                  <button class="btn-opciones" type="button" class="btn btn-secondary dropdown-toggle options-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <strong>...</strong>
                   </button>
-                  <div class="dropdown-menu dropdown-menu-right">
-                    <button class="dropdown-item" type="button">Ver detalle</button>
-                    <button class="dropdown-item" type="button">Compartir</button>
-                    <button class="dropdown-item" type="button">Eliminar</button>
+                  <div class="dropdown-menu dropdown-menu-right ">
+                    <button class="dropdown-item" (click)="DetailEmoPicture()" type="button">Ver detalle</button>
+                    <button class="dropdown-item" (click) ="deleteEmoPicture(emoPicture.$key)" type="button">Eliminar</button>
                   </div>
                 </div>
               </div>            
             </div>
-            <div>
+            <div class="img-public">
 
               <img class="emo-image" [src]="emoPicture.UrlImage" alt=""> 
             </div>
+            <h5> Estas son tus emociones:<strong class="add-coment-title">{{emoPicture.Username}}</strong></h5>
             <div class="row" id="emociones">
             <div id="items" role="tablist" *ngFor="let emotion of emoPicture.Scores;let i = index" class="col-md-6">
-                  <h5>Emociones rostro {{i}}</h5>
+                  
                   <ul class="card-blockquote">
-                        <p class="list-group-item">Feliz: {{emotion.Happiness}}</p>
-                        <p class="list-group-item">Neutral: {{emotion.Neutral}}</p>
-                        <p class="list-group-item">Sorprendido:  {{emotion.Surprise}}</p>
-                        <p class="list-group-item">Tristeza:  {{emotion.Sadness}}</p>                        
+                        <li class="list-group-item justify-content-between"><strong class="title-score"> Feliz:</strong> 
+                          <span class="badge badge-primary badge-pill">{{emotion.Happiness}} %</span>
+                        </li>
+                        <li class="list-group-item justify-content-between"><strong class="title-score">Neutral:</strong> 
+                          <span class="badge badge-primary badge-pill">{{emotion.Neutral}} %</span>
+                        </li>
+                        <li class="list-group-item justify-content-between"><strong class="title-score">Sorprendido:</strong>  
+                          <span class="badge badge-primary badge-pill">{{emotion.Surprise}} %</span>
+                        </li>
+                        <li class="list-group-item justify-content-between"><strong class="title-score">Tristeza:</strong>
+                            <span class="badge badge-primary badge-pill">{{emotion.Sadness}} %</span>  
+                        </li>                        
                   </ul>              
             </div> 
             </div>
-          <div class="time">
-            <p class="card-text">hace 5 minutos</p>
-          </div>             
-            <button class="btn btn-outline-success">agregar un comentario</button>
-</div>
+            <br>
+            <div class="car-footer">
+              <span class="glyphicon glyphicon-comment" aria-hidden="true"></span><button class="btn btn-outline-success" (click)="showAddComent()">{{(coments | async)?.length}} comentarios</button>  
+            </div>
+            
+      </div>
+
+
+<!-- comments section -->
+           <div class="secction-comments card" [hidden]="hidenComment">
+
+                 <div class="add-Coment" >
+                    <div class="row">
+                      <div class="col-md-2 col-xs-12">
+                        <img [src]="emoPicture.UrlPhotoUserSesion" class="user-avatar" alt="">                             
+                      </div>
+                      <div class="col-md-10 col-xs-12">
+                        <div class="row nombre-user">
+                          <span><strong class="add-coment-title">{{emoPicture.Username}}</strong></span>  
+                        </div>
+                        <div class="row cuadro-texto">
+                          <div class="comment-textbox col-md-8 col-xs-8">
+                            <form [formGroup]="comentForm">
+                              <div class="form-group row">
+                                <textarea type="text" onresize="false" rows="3" cols="40" class="form-control"  formControlName="comentario"></textarea>
+                              </div>
+                            </form>
+                          </div>
+                          <div class="col-md-4 col-xs-4">
+                            <button class="btn btn-outline-success" (click)="publicComment(emoPicture.$key,emoPicture.Username,emoPicture.UrlPhotoUserSesion)">publicar</button>
+                          </div>
+                        </div>                      
+                        
+                      </div>
+                   </div>
+                 </div>
+            
+              <div class="comments">
+                <div class="commentario col-md-12 col-xs-12 col-lg-12" *ngFor="let comment of coments | async">
+                    <app-coments [comment]="comment"></app-coments>
+                </div>   
+              </div>
+                 
+
+
+
  </div>
+
+
+
+        
+            

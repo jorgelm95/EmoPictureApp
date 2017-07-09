@@ -1,0 +1,38 @@
+<nav class="navbar navbar-toggleable-md navbar-light bg-faded" id="barra-navegacion">
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand iten-header" routerLink="/home" routerLinkActive="active">Emotion App</a>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="offset-3">
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="text" placeholder="Buesqueda">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+      </form>
+    </div>
+
+    <ul class="navbar-nav mr-auto offset-3">
+      <li class="nav-item active">
+        <a class="nav-link iten-header" [hidden]="disableInicarSesion" href="#">iniciar sesión<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link iten-header" [hidden]="disableHome"routerLink="/home">Inicio</a>
+      </li>
+      <li class="nav-item">
+        <img [src] ="userInfo.URlPhoto" class="img-fluid rounded rounded-circle avatar-image" [hidden]="diasablePerfil" alt="">
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link iten-header dropdown-toggle" [hidden]="diasablePerfil" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <strong>{{userInfo.Name}}</strong>
+        </a>
+        <div [hidden]="diasablePerfil" class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="">Perfil</a>
+          <a class="dropdown-item" (click)="singOut()"  href="#">Cerrar sesión</a>
+          
+        </div>
+      </li>
+    </ul>
+   
+  </div>
+</nav>

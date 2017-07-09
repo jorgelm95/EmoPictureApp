@@ -16,21 +16,34 @@ import {EmoPicture} from '../Models/EmoPicture';
 })
 export class HomeComponent implements OnInit {
   progresBar:Number =50;
-  progres:Progres
+  progres:Progres;
   userinfo:User;
+  user:any;
   file:any;
   listPictures:FirebaseListObservable<EmoPicture[]>;
 
   constructor(private emoService:EmotionPictureService, private sinService:SingInService) { 
-   this.userinfo = this.sinService.chekStateUser();
+   
        this.progres = new Progres();
    
   }
 
   ngOnInit() {
+    this.user = this.sinService.chekStateUser();
+    this.user.subscribe(
+      (auth)=>{
+
+        this.userinfo ={
+          Name: String(auth.displayName),
+          Email:String(auth.email),
+          URlPhoto:String(auth.photoURL),
+          FacebookID:''
+        }
+      }
+    )
      this.progres.Progres =0;
 
-    this.listPictures= this.emoService.GetAllPictures();
+    this.listPictures= this.emoService.getAllPictures();
    
     console.log("datos desde fb");
     console.log(this.listPictures);

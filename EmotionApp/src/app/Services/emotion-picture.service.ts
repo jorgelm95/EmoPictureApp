@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Http, Response, RequestOptions, Headers } from '@angular/http';
-import {Observable} from 'rxjs/Observable'
+import {Observable} from 'rxjs/Observable';
+import "rxjs/add/operator/map";
 
 import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database';
 import {storage} from 'firebase';
@@ -16,16 +17,31 @@ export class EmotionPictureService {
 emoPicture:EmoPicture;
 pictures: FirebaseListObservable<any[]>;
 
+comments:FirebaseListObservable<any[]>;
+
+face:any;
+score:any;
+
+
 listPictures:FirebaseListObservable<EmoPicture[]>;
+
+coment:any;
+
 key:string="784edfbff25346e585cdd8dce6600aaa";
 urlServiceEndPoint: any="https://westus.api.cognitive.microsoft.com/emotion/v1.0/recognize?";
 progresBar:Number;
   constructor(private http:Http, private af:AngularFireDatabase) {
-    this.inicializateEmoPictureModel();
-   }
+    //this.inicializateEmoPictureModel();
+    this.face=[];
+    this.score=[];
+    this.coment =[{UserComment:"",Comment:"", UrlPhotoUserCOment:""}];
+
+
+  }
 
 
 inicializateEmoPictureModel():void{
+  /*
    this.emoPicture ={
       Username:'',
        Email:'',
@@ -52,7 +68,7 @@ inicializateEmoPictureModel():void{
       Comment:"",
       UrlPhotoUserCOment:""
     }] 
-  }
+  }*/
 }
 
  private basePath ='/Pictures';
@@ -98,28 +114,34 @@ uploadImageToFirebase(file:any, progres:Progres, userinfo:any) {
         
     }
 
+
 SaveitemInfirebase(userinfo:any,imageObject:any,imagenurl:string):void{
-      this.emoPicture.Username=userinfo.Name;
-      this.emoPicture.Email = userinfo.Email;
-      this.emoPicture.UrlPhotoUserSesion = userinfo.PhotoURL;
-      this.emoPicture.UrlImage= imagenurl;
+
       if (imageObject.length >0){
         imageObject.forEach(element=>{
-          this.emoPicture.FaceRectangle.push({'Top': element.faceRectangle.top,'Left':element.faceRectangle.left,
-          'Width':element.faceRectangle.width,'Height':element.faceRectangle.height });
+         this.face.push({'Top':Number(element.faceRectangle.top),'Left':Number(element.faceRectangle.left),
+          'Width':Number(element.faceRectangle.width),'Height':Number(element.faceRectangle.height) });
 
-          this.emoPicture.Scores.push({'Anger': element.scores.anger,'Contempt':element.scores.contempt,'Disgust':element.scores.disgust,
-          'Fear':element.scores.fear,'Happiness':element.scores.happiness,'Neutral':element.scores.neutral,
-          'Sadness':element.scores.sadness,'Surprise':element.scores.surprise});
+          this.score.push({'Anger': Number((element.scores.anger*100)).toFixed(2),'Contempt':Number((element.scores.contempt*100)).toFixed(2),
+          'Disgust':Number((element.scores.disgust*100)).toFixed(2),'Fear':Number(element.scores.fear).toFixed(2),'Happiness':Number((element.scores.happiness*100)).toFixed(2),
+          'Neutral':Number((element.scores.neutral*100)).toFixed(2),'Sadness':Number((element.scores.sadness*100)).toFixed(2),
+          'Surprise':Number((element.scores.surprise*100)).toFixed(2)});
       });
 
       }else{
         console.log("no hayb registros para insertar")
       }
 
-    
+      this.emoPicture ={
+        Username: String(userinfo.Name),
+        Email: String(userinfo.Email),
+        UrlPhotoUserSesion: String(userinfo.URlPhoto),
+        UrlImage: String(imagenurl),
+        FaceRectangle:this.face,
+        Scores:this.score,
+        Comments:this.coment
 
-      
+      }  
 
       this.pictures = this.af.list('/emopictureapp');
       this.pictures.push(this.emoPicture);
@@ -151,9 +173,29 @@ callImageCognitveEmotionService(urlImage:string):Observable<Response>{
 }
 
 
-GetAllPictures():FirebaseListObservable<EmoPicture[]>{
+getAllPictures():FirebaseListObservable<EmoPicture[]>{
  return this.listPictures = this.af.list('/emopictureapp');
   
+}
+
+addComentsToEmoPicture(key:any,user:string,urlPhotoUser:string,commenta:String){
+ let pictures= this.af.list('/emopictureapp/'+key+'/Comments');
+ let comment:any={
+  UserComment:user,
+  Comment:commenta,
+  UrlPhotoUserCOment:urlPhotoUser
+};
+ 
+ pictures.push(comment);
+
+}
+
+getComments(key:any):FirebaseListObservable<any[]>{
+  return this.comments = this.af.list('/emopictureapp/'+key+'/Comments');
+}
+deleteEmoPicture(key:any){
+  let picture = this.af.list('/emopictureapp');
+  picture.remove(key);
 }
 
 }

@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {HttpModule} from '@angular/http';
+import {FormsModule,ReactiveFormsModule} from '@angular/forms'
 
 import {AngularFireModule} from 'angularfire2'
 import {AngularFireDatabaseModule} from 'angularfire2/database';
@@ -42,6 +43,7 @@ export const firebaseConfig={
 /** file of  rutas de la app */
 import {AppRoute} from './Commons/Routes';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { HeaderComponent } from './header/header.component';
 
 
 
@@ -55,7 +57,8 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
     HomeComponent,
     CardPictureComponent,
     CardPictureDetailComponent,
-    NavBarComponent
+    NavBarComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -63,6 +66,8 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     HttpModule,
+    FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(AppRoute)
    // InfiniteScrollModule
   ],

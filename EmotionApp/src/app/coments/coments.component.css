@@ -1,0 +1,21 @@
+.comentario{
+    margin-bottom: 15px;
+    border-bottom: 1px solid rgba(169, 169, 169, 0.2);
+    padding: 10px;
+}
+.avatar-image-comments{
+    margin-right: 10px;
+    width: 40px;
+}
+
+#name-user{
+    color: #365899;
+    font-size: 12px;
+}
+
+#user-coment{
+    color: #1d2129;
+}
+#user-coment,#name-user{
+    font-size: 13px;
+}

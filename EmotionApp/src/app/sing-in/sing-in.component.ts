@@ -31,6 +31,7 @@ export class SingInComponent implements OnInit {
   loginFacebook():void{
     this.singService.sinIngFacebook();
     this.router.navigate(['/home']);
+    
   }
 
   loginGoogle():void{
@@ -40,6 +41,9 @@ export class SingInComponent implements OnInit {
 
   navigateHome():void{
     this.router.navigate(['/home']);
+  }
+  signOut(){
+    this.singService.signOut();
   }
    
 }

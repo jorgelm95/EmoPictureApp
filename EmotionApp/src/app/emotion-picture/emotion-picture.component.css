@@ -9,13 +9,15 @@
    padding-bottom: 10px;
 }
 
-.avatar-image{
-    width: 50px;
-}
- 
+
 .emo-image{
     width: 100%;
     height: 100%;
+    border-radius: 5px;
+   /* margin-bottom: 20px;*/
+}
+
+.secction-comments{
     margin-bottom: 20px;
 }
 
@@ -31,4 +33,35 @@
 .progress{
     padding:0px !important;
 }
+
+.img-public{
+    width: 100%;
+    height: 500px;
+    
+}
+
+.user-avatar,.user-name-title{
+    padding: 0px !important
+}
+
+.add-Coment,.comments{
+    background-color: #f6f7f9;
+}
+
+.card-title{
+    color: #365899;
+    font-size: 13px;
+}
+
+.add-coment-title{
+    color: #365899;
+}
+
+.title-score{
+    color: #9094b4;
+}
+.options-menu{
+    border: 0px !important;
+}
+
 

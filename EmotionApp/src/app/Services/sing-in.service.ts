@@ -21,6 +21,12 @@ export class SingInService {
   }
 
 
+   chekStateUser():any{
+    this.user = this.afuth.authState;
+     return this.user;
+   }
+
+/*
    chekStateUser():User{
     this.user = this.afuth.authState;
     this.user.subscribe(
@@ -33,13 +39,18 @@ export class SingInService {
     )
      return this.userInfo;
    }
-   
+  */ 
    sinIngFacebook(){
-      this.afuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider());
+      this.afuth.auth.signInWithRedirect(new firebase.auth.FacebookAuthProvider())
+      
    }
 
    singInGoogle(){
      this.afuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+   }
+
+   signOut(){
+     this.afuth.auth.signOut();
    }
 
 }
